@@ -1,13 +1,72 @@
-# TrajMap
+# Topic Model-based Road Network Inference from Massive Trajectories
 
-* [百度地图api](http://developer.baidu.com/map/jsdemo.htm#f0_7)
-* [我的例子](http://10.60.43.110:8989/Project/TrajBase/)
-* [数据](http://10.60.43.110:8181/data/data.js)
-* [server端用django](https://www.djangoproject.com/)
+This project is the implementation of the paper [Topic Model-based Road Network Inference from Massive Trajectories](http://www.renj.me/roadnet.pdf) (MDM 2017)
 
-Ajax和Django交换数据
+## 1. Data
 
-* [Ajax 1](http://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications)
-* [Ajax 2](http://www.tangowithdjango.com/book/chapters/ajax.html)
-* [Ajax 3](https://code.djangoproject.com/wiki/AJAX)
+Data Structure
 
+tid, x, y, lon, lat, time
+
+### 1.1 Chicago
+
+* Trajectories
+    - utm_axis = (442551, 447326,  4634347, 4637377)
+    - gps_axis = (41.858952 -87.69215 41.886565 -87.634896)
+    - TrajMap
+        + /Data/Chicago/chicago.pickle
+            + id, x (utm), y (utm), t, tid
+    - Biagioni
+        + /Data/Chicago/all_trips
+* Real map
+    - osm
+        + /Data/Chicago/chicago_edges_osm.txt
+        + /Data/Chicago/chicago_vertices_osm.txt
+    - dataframe
+        + /Data/Chicago/chicago_map_df.csv
+
+### 1.2 Shanghai
+
+* Trajectories
+    * Shanghai small data
+        - utm_axis = (347500, 352500, 3447500, 3452500)
+        - gps_axis = (121.4, 121.452, 31.1515, 31.197) 
+        - Data:
+            + /Data/Shanghai/minsh_1000.pickle
+            + /Data/Shanghai/minsh_1000_biagioni
+            + /Data/Shanghai/minsh_5000.pickle
+            + /Data/Shanghai/minsh_10000.pickle
+    * Shanghai big data:
+        - utm_axis = (345000, 365000, 3445000, 3465000)
+* Map:
+    - /Data/Shanghai/sh_map_df.csv
+
+### 1.3 Biagioni
+
+chicago_biagioni LineSegment 798 3.7801833333333335
+
+* data need to change
+    - ./bounding_boxes
+* data need store
+    - ./skeleton_maps/*
+* data after runing
+    - ./*.png
+    - ./trips/*
+    - ./skeleton_images/*
+    - ./skeleton_maps/*
+
+## 2. Map-matching
+
+data.index = range(len(data))
+data[['tLon','tLat','pLon','pLat']]
+
+## 3. compile plsa
+
+python setup.py build_ext --inplace --force
+
+## 4. Parameters
+
+$u_{ij}$: topic matrix with $j$ th topic and $i$ th cell
+$k$: number of topics
+$w$: grid width
+$p$: padding
