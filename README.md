@@ -4,9 +4,7 @@ This project is the implementation of the paper [Topic Model-based Road Network 
 
 ## 1. Data
 
-Data Structure
-
-tid, x, y, lon, lat, time
+Data Structure: (tid, x, y, lon, lat, time)
 
 ### 1.1 Chicago
 
@@ -55,18 +53,28 @@ chicago_biagioni LineSegment 798 3.7801833333333335
     - ./skeleton_images/*
     - ./skeleton_maps/*
 
-## 2. Map-matching
+## 2. Run experiment script
 
+```bash
+python script.py
+```
+
+## 3. Map-matching
+
+```python
 data.index = range(len(data))
 data[['tLon','tLat','pLon','pLat']]
+```
 
-## 3. compile plsa
+## 4. compile plsa
 
+```bash
 python setup.py build_ext --inplace --force
+```
 
-## 4. Parameters
+## 5. Parameters
 
-$u_{ij}$: topic matrix with $j$ th topic and $i$ th cell
-$k$: number of topics
-$w$: grid width
-$p$: padding
+* $u_{ij}$: topic matrix with $j$ th topic and $i$ th cell
+* $k$: number of topics
+* $w$: grid width
+* $p$: padding
